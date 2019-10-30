@@ -17,16 +17,19 @@ import java.io.File
 import java.io.UnsupportedEncodingException
 import java.util.Locale
 
-class AwsHelper(private val context: Context, private val onUploadCompleteListener: OnUploadCompleteListener, private val BUCKET_NAME: String, private val IDENTITY_POOL_ID: String) {
+class AwsHelper(private val context: Context, private val onUploadCompleteListener: OnUploadCompleteListener,
+                private val BUCKET_NAME: String,
+                private val IDENTITY_POOL_ID: String,
+                private val REGION: String) {
 
     private var transferUtility: TransferUtility
     private var nameOfUploadedFile: String? = null
 
     init {
-        val credentialsProvider = CognitoCachingCredentialsProvider(context, IDENTITY_POOL_ID, Regions.US_EAST_1)
+        val credentialsProvider = CognitoCachingCredentialsProvider(context, IDENTITY_POOL_ID, Regions.fromName(REGION))
 
         val amazonS3Client = AmazonS3Client(credentialsProvider)
-        amazonS3Client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.US_EAST_1))
+        amazonS3Client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.fromName(REGION)))
         transferUtility = TransferUtility(amazonS3Client, context)
     }
 
@@ -39,10 +42,10 @@ class AwsHelper(private val context: Context, private val onUploadCompleteListen
 
     @Throws(UnsupportedEncodingException::class)
     fun uploadImage(image: File): String {
-        val credentialsProvider = CognitoCachingCredentialsProvider(context, IDENTITY_POOL_ID, Regions.US_EAST_1)
+        val credentialsProvider = CognitoCachingCredentialsProvider(context, IDENTITY_POOL_ID, Regions.fromName(REGION))
 
         val amazonS3Client = AmazonS3Client(credentialsProvider)
-        amazonS3Client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.US_EAST_1))
+        amazonS3Client.setRegion(com.amazonaws.regions.Region.getRegion(Regions.fromName(REGION)))
         transferUtility = TransferUtility(amazonS3Client, context)
 
         nameOfUploadedFile = clean(image.name)

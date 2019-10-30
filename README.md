@@ -10,7 +10,7 @@ To use this plugin, add `flutter_amazon_s3` as a [dependency in your pubspec.yam
 
 ```yaml
 dependencies:
-  flutter_amazon_s3: '^0.0.9'
+  flutter_amazon_s3: '^0.1.2'
 ```
 
 ### Example
@@ -20,7 +20,7 @@ dependencies:
 import 'package:flutter_amazon_s3/flutter_amazon_s3.dart';
 
 String uploadedImageUrl = await FlutterAmazonS3.uploadImage(
-          _image.path, BUCKET_NAME, IDENTITY_POOL_ID);
+          _image.path, BUCKET_NAME, IDENTITY_POOL_ID, REGION);
 ```
           
 ## Installation

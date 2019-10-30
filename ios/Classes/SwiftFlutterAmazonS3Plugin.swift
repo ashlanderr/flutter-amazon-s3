@@ -16,6 +16,7 @@ public class SwiftFlutterAmazonS3Plugin: NSObject, FlutterPlugin {
             let imagePath = arguments!["filePath"] as? String
             let bucket = arguments!["bucket"] as? String
             let identity = arguments!["identity"] as? String
+            let region = arguments!["region"] as? String
 
             var imageAmazonUrl = ""
             let fileUrl = NSURL(fileURLWithPath: imagePath!)
@@ -28,10 +29,10 @@ public class SwiftFlutterAmazonS3Plugin: NSObject, FlutterPlugin {
             uploadRequest?.acl = .publicReadWrite
 
             let credentialsProvider = AWSCognitoCredentialsProvider(
-                regionType: AWSRegionType.USEast1,
+                regionType: region,
                 identityPoolId: identity!)
             let configuration = AWSServiceConfiguration(
-                region: AWSRegionType.USEast1,
+                region: region,
                 credentialsProvider: credentialsProvider)
             AWSServiceManager.default().defaultServiceConfiguration = configuration
 

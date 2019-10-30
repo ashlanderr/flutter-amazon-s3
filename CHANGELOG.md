@@ -34,3 +34,15 @@
 
  - Some fixes in docs
 
+## 0.1.0
+
+ - Add custom region input
+
+## 0.1.1
+
+ - Fix doc
+
+## 0.1.2
+
+ - Fix
+
